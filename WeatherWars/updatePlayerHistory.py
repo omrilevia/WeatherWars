@@ -34,7 +34,7 @@ def updatePlayerHistory(cId, duration, weatherType, scoringType, conn, cursor):
         for row in values:
             if count == 0:
                 cursor.execute("select currentStreak, maxStreak from history where userName = ?",(row[0]))
-                streaks = cursor.fetchall()
+                streaks = cursor.fetchone()
                 if (streaks[0] == streaks[1]):
                     cursor.execute("update history set earnings = earnings+?, currentStreak = ?, maxStreak = ?, "
                                    "gamesWon = gamesWon+1, totalGames=totalGames+1 where userName = ?",(firstPrize,streaks[1]+1,streaks[1]+1, row[0]))
