@@ -12,6 +12,7 @@ from fetchWeatherData import fetchWeatherData
 from populateCities import populateCities
 from newPlayer import addNewPlayer
 from playerJoinsContest import playerJoinsContestExtremes
+from playerJoinsContest import playerJoinsContestPredictions
 import pyodbc
 import requests
 
@@ -30,9 +31,9 @@ def main():
     playerFour = ['notABot', 'password', '1-1-1980', 'four@gmail.com','1234567890']
     playerInfo = [playerOne,playerTwo,playerThree,playerFour]
     addNewPlayer(playerInfo,conn,cursor)
-    tenCities = ['New York', 'Seattle', 'San Jose', 'Phoenix', 'Las Vegas', 'Honolulu', 'Atlanta', 'Boulder', 'Boston', 'Miami']
-    playerJoinsContestExtremes('playerOne', 'aTeam', 0, tenCities, cursor, conn)
-    
+    tenCities = {'New York':40, 'Seattle':50, 'San Jose':75, 'Phoenix':80, 'Las Vegas':80, 'Honolulu':80, 'Atlanta':65, 'Boulder':70, 'Boston':35, 'Miami':69}
+    #playerJoinsContestExtremes('playerOne', 'aTeam', 0, tenCities, cursor, conn)
+    playerJoinsContestPredictions('playerOne', 'aTeam', 9, tenCities, cursor, conn)
 
 if __name__ == "__main__":
     main()

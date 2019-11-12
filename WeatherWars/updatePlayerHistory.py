@@ -21,13 +21,25 @@ def updatePlayerHistory(cId, duration, weatherType, scoringType, conn, cursor):
     else:
         price = 300
     if(weatherType == 'Heat' and scoringType == 'Extremes'):
-        cursor.execute("select count(userName) from finishedContestScoresExtremes where contest# = ?",(cId))
+        if(duration == 'Daily'):
+            cursor.execute("select count(userName) from finishedContestScoresExtremesDaily where contest# = ?",(cId))
+        elif(duration == 'Weekly'):
+            cursor.execute("select count(userName) from finishedContestScoresExtremesWeekly where contest# = ?",(cId))
+        else:
+            cursor.execute("select count(userName) from finishedContestScoresExtremesSeasonal where contest# = ?",(cId))
         totalPlayers = cursor.fetchone()[0]
         prizePool = totalPlayers * price
         firstPrize = prizePool * .5
         secondPrize = prizePool * .3
         thirdPrize = prizePool * .2
-        cursor.execute("select userName, HeatScore from finishedContestScoresExtremes where contest# = ? "
+        if(duration == 'Daily'):
+            cursor.execute("select userName, HeatScore from finishedContestScoresExtremesDaily where contest# = ? "
+                       "order by HeatScore desc",(cId))
+        elif(duration == 'Weekly'):
+            cursor.execute("select userName, HeatScore from finishedContestScoresExtremesWeekly where contest# = ? "
+                       "order by HeatScore desc",(cId))
+        else:
+            cursor.execute("select userName, HeatScore from finishedContestScoresExtremesSeasonal where contest# = ? "
                        "order by HeatScore desc",(cId))
         values = cursor.fetchall()
         count = 0
@@ -52,13 +64,25 @@ def updatePlayerHistory(cId, duration, weatherType, scoringType, conn, cursor):
                                "totalGames = totalGames+1 where userName = ?", (price, row[0]))
             count = count + 1
     elif(weatherType == 'Heat' and scoringType == 'Predictions'):
-        cursor.execute("select count(userName) from finishedContestScoresPredictions where cId = ?",(cId))
+        if(duration == 'Daily'):
+            cursor.execute("select count(userName) from finishedContestScoresPredictionsDaily where contest# = ?",(cId))
+        elif(duration == 'Weekly'):
+            cursor.execute("select count(userName) from finishedContestScoresPredictionsWeekly where contest# = ?",(cId))
+        else:
+            cursor.execute("select count(userName) from finishedContestScoresPredictionsSeasonal where contest# = ?",(cId))
         totalPlayers = cursor.fetchone()[0]
         prizePool = totalPlayers * price
         firstPrize = prizePool * .5
         secondPrize = prizePool * .3
         thirdPrize = prizePool * .2
-        cursor.execute("select userName, HeatScore from finishedContestScoresPredictions where cId = ? "
+        if(duration == 'Daily'):
+            cursor.execute("select userName, HeatScore from finishedContestScoresPredictionsDaily where cId = ? "
+                       "order by HeatScore asc",(cId))
+        elif(duration == 'Weekly'):
+            cursor.execute("select userName, HeatScore from finishedContestScoresPredictionsWeekly where cId = ? "
+                       "order by HeatScore asc",(cId))
+        elif(duration == 'Seasonal'):
+            cursor.execute("select userName, HeatScore from finishedContestScoresPredictionsSeasonal where cId = ? "
                        "order by HeatScore asc",(cId))
         values = cursor.fetchall()
         count = 0
@@ -83,13 +107,25 @@ def updatePlayerHistory(cId, duration, weatherType, scoringType, conn, cursor):
                                "totalGames = totalGames+1 where userName = ?", (price, row[0]))
             count = count + 1
     elif(weatherType == 'Cold' and scoringType == 'Extremes'):
-        cursor.execute("select count(userName) from finishedContestScoresExtremes where contest# = ?",(cId))
+        if(duration == 'Daily'):
+            cursor.execute("select count(userName) from finishedContestScoresExtremesDaily where contest# = ?",(cId))
+        elif(duration == 'Weekly'):
+            cursor.execute("select count(userName) from finishedContestScoresExtremesWeekly where contest# = ?",(cId))
+        else:
+            cursor.execute("select count(userName) from finishedContestScoresExtremesSeasonal where contest# = ?",(cId))
         totalPlayers = cursor.fetchone()[0]
         prizePool = totalPlayers * price
         firstPrize = prizePool * .5
         secondPrize = prizePool * .3
         thirdPrize = prizePool * .2
-        cursor.execute("select userName, ColdScore from finishedContestScoresExtremes where contest# = ? "
+        if(duration == 'Daily'):
+            cursor.execute("select userName, ColdScore from finishedContestScoresExtremesDaily where contest# = ? "
+                       "order by ColdScore desc",(cId))
+        elif(duration == 'Weekly'):
+            cursor.execute("select userName, ColdScore from finishedContestScoresExtremesWeekly where contest# = ? "
+                       "order by ColdScore desc",(cId))
+        else:
+            cursor.execute("select userName, ColdScore from finishedContestScoresExtremesSeasonal where contest# = ? "
                        "order by ColdScore desc",(cId))
         values = cursor.fetchall()
         count = 0
@@ -114,13 +150,25 @@ def updatePlayerHistory(cId, duration, weatherType, scoringType, conn, cursor):
                                "totalGames = totalGames+1 where userName = ?", (price, row[0]))
             count = count + 1
     elif(weatherType == 'Cold' and scoringType == 'Predictions'):
-        cursor.execute("select count(userName) from finishedContestScoresPredictions where cId = ?",(cId))
+        if(duration == 'Daily'):
+            cursor.execute("select count(userName) from finishedContestScoresPredictionsDaily where cId = ?",(cId))
+        elif(duration == 'Weekly'):
+            cursor.execute("select count(userName) from finishedContestScoresPredictionsWeekly where cId = ?",(cId))
+        else:
+            cursor.execute("select count(userName) from finishedContestScoresPredictionsSeasonal where cId = ?",(cId))
         totalPlayers = cursor.fetchone()[0]
         prizePool = totalPlayers * price
         firstPrize = prizePool * .5
         secondPrize = prizePool * .3
         thirdPrize = prizePool * .2
-        cursor.execute("select userName, ColdScore from finishedContestScoresPredictions where cId = ? "
+        if(duration == 'Daily'):
+            cursor.execute("select userName, ColdScore from finishedContestScoresPredictionsDaily where cId = ? "
+                       "order by ColdScore asc",(cId))
+        elif(duration == 'Weekly'):
+            cursor.execute("select userName, ColdScore from finishedContestScoresPredictionsWeekly where cId = ? "
+                       "order by ColdScore asc",(cId))
+        else:
+            cursor.execute("select userName, ColdScore from finishedContestScoresPredictionsSeasonal where cId = ? "
                        "order by ColdScore asc",(cId))
         values = cursor.fetchall()
         count = 0
@@ -145,13 +193,25 @@ def updatePlayerHistory(cId, duration, weatherType, scoringType, conn, cursor):
                                "totalGames = totalGames+1 where userName = ?", (price, row[0]))
             count = count + 1
     elif(weatherType == 'Rain' and scoringType == 'Extremes'):
-        cursor.execute("select count(userName) from finishedContestScoresExtremes where contest# = ?",(cId))
+        if(duration == 'Daily'):
+            cursor.execute("select count(userName) from finishedContestScoresExtremesDaily where contest# = ?",(cId))
+        elif(duration == 'Weekly'):
+            cursor.execute("select count(userName) from finishedContestScoresExtremesWeekly where contest# = ?",(cId))
+        else:
+            cursor.execute("select count(userName) from finishedContestScoresExtremesSeasonal where contest# = ?",(cId))
         totalPlayers = cursor.fetchone()[0]
         prizePool = totalPlayers * price
         firstPrize = prizePool * .5
         secondPrize = prizePool * .3
         thirdPrize = prizePool * .2
-        cursor.execute("select userName, RainScore from finishedContestScoresExtremes where contest# = ? "
+        if(duration == 'Daily'):
+            cursor.execute("select userName, RainScore from finishedContestScoresExtremesDaily where contest# = ? "
+                       "order by RainScore desc",(cId))
+        elif(duration == 'Weekly'):
+            cursor.execute("select userName, RainScore from finishedContestScoresExtremesWeekly where contest# = ? "
+                       "order by RainScore desc",(cId))
+        else:
+            cursor.execute("select userName, RainScore from finishedContestScoresExtremesSeasonal where contest# = ? "
                        "order by RainScore desc",(cId))
         values = cursor.fetchall()
         count = 0
@@ -176,13 +236,25 @@ def updatePlayerHistory(cId, duration, weatherType, scoringType, conn, cursor):
                                "totalGames = totalGames+1 where userName = ?", (price, row[0]))
             count = count + 1
     elif(weatherType == 'Rain' and scoringType == 'Predictions'):
-        cursor.execute("select count(userName) from finishedContestScoresPredictions where cId = ?",(cId))
+        if(duration == 'Daily'):
+            cursor.execute("select count(userName) from finishedContestScoresPredictionsDaily where cId = ?",(cId))
+        elif(duration == 'Weekly'):
+            cursor.execute("select count(userName) from finishedContestScoresPredictionsWeekly where cId = ?",(cId))
+        else:
+            cursor.execute("select count(userName) from finishedContestScoresPredictionsSeasonal where cId = ?",(cId))
         totalPlayers = cursor.fetchone()[0]
         prizePool = totalPlayers * price
         firstPrize = prizePool * .5
         secondPrize = prizePool * .3
         thirdPrize = prizePool * .2
-        cursor.execute("select userName, RainScore from finishedContestScoresPredictions where cId = ? "
+        if(duration == 'Daily'):
+            cursor.execute("select userName, RainScore from finishedContestScoresPredictionsDaily where cId = ? "
+                       "order by RainScore asc",(cId))
+        elif(duration == 'Weekly'):
+            cursor.execute("select userName, RainScore from finishedContestScoresPredictionsWeekly where cId = ? "
+                       "order by RainScore asc",(cId))
+        else:
+            cursor.execute("select userName, RainScore from finishedContestScoresPredictionsSeasonal where cId = ? "
                        "order by RainScore asc",(cId))
         values = cursor.fetchall()
         count = 0
@@ -207,13 +279,25 @@ def updatePlayerHistory(cId, duration, weatherType, scoringType, conn, cursor):
                                "totalGames = totalGames+1 where userName = ?", (price, row[0]))
             count = count + 1
     elif(weatherType == 'Wind' and scoringType == 'Extremes'):
-        cursor.execute("select count(userName) from finishedContestScoresExtremes where contest# = ?",(cId))
+        if(duration == 'Daily'):
+            cursor.execute("select count(userName) from finishedContestScoresExtremesDaily where contest# = ?",(cId))
+        elif(duration == 'Weekly'):
+            cursor.execute("select count(userName) from finishedContestScoresExtremesWeekly where contest# = ?",(cId))
+        else:
+            cursor.execute("select count(userName) from finishedContestScoresExtremesSeasonal where contest# = ?",(cId))
         totalPlayers = cursor.fetchone()[0]
         prizePool = totalPlayers * price
         firstPrize = prizePool * .5
         secondPrize = prizePool * .3
         thirdPrize = prizePool * .2
-        cursor.execute("select userName, RainScore from finishedContestScoresExtremes where contest# = ? "
+        if(duration == 'Daily'):
+            cursor.execute("select userName, RainScore from finishedContestScoresExtremesDaily where contest# = ? "
+                       "order by WindScore desc",(cId))
+        elif(duration == 'Weekly'):
+            cursor.execute("select userName, RainScore from finishedContestScoresExtremesWeekly where contest# = ? "
+                       "order by WindScore desc",(cId))
+        else:
+            cursor.execute("select userName, RainScore from finishedContestScoresSeasonal where contest# = ? "
                        "order by WindScore desc",(cId))
         values = cursor.fetchall()
         count = 0
@@ -238,13 +322,25 @@ def updatePlayerHistory(cId, duration, weatherType, scoringType, conn, cursor):
                                "totalGames = totalGames+1 where userName = ?", (price, row[0]))
             count = count + 1
     else:
-        cursor.execute("select count(userName) from finishedContestScoresPredictions where cId = ?",(cId))
+        if(duration == 'Daily'):
+            cursor.execute("select count(userName) from finishedContestScoresPredictionsDaily where cId = ?",(cId))
+        elif(duration == 'Weekly'):
+            cursor.execute("select count(userName) from finishedContestScoresPredictionsWeekly where cId = ?",(cId))
+        else:
+            cursor.execute("select count(userName) from finishedContestScoresPredictionsSeasonal where cId = ?",(cId))
         totalPlayers = cursor.fetchone()[0]
         prizePool = totalPlayers * price
         firstPrize = prizePool * .5
         secondPrize = prizePool * .3
         thirdPrize = prizePool * .2
-        cursor.execute("select userName, RainScore from finishedContestScoresPredictions where cId = ? "
+        if(duration == 'Daily'):
+            cursor.execute("select userName, WindScore from finishedContestScoresPredictionsDaily where cId = ? "
+                       "order by WindScore asc",(cId))
+        elif(duration == 'Weekly'):
+            cursor.execute("select userName, WindScore from finishedContestScoresPredictionsWeekly where cId = ? "
+                       "order by WindScore asc",(cId))
+        else:
+            cursor.execute("select userName, WindScore from finishedContestScoresPredictionsSeasonal where cId = ? "
                        "order by WindScore asc",(cId))
         values = cursor.fetchall()
         count = 0
