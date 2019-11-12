@@ -177,3 +177,13 @@ select * from buyInto
 select * from comprisedOf
 
 select * from runningContestScoresExtremes
+
+update contest
+set timeCreated = '11-6-2019'
+where cId = 0;
+
+select * from contest
+select * from history
+
+select * from finishedContestScoresExtremes
+

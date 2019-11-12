@@ -52,13 +52,13 @@ def updatePlayerHistory(cId, duration, weatherType, scoringType, conn, cursor):
                                "totalGames = totalGames+1 where userName = ?", (price, row[0]))
             count = count + 1
     elif(weatherType == 'Heat' and scoringType == 'Predictions'):
-        cursor.execute("select count(userName) from finishedContestScoresPredictions where contest# = ?",(cId))
+        cursor.execute("select count(userName) from finishedContestScoresPredictions where cId = ?",(cId))
         totalPlayers = cursor.fetchone()[0]
         prizePool = totalPlayers * price
         firstPrize = prizePool * .5
         secondPrize = prizePool * .3
         thirdPrize = prizePool * .2
-        cursor.execute("select userName, HeatScore from finishedContestScoresPredictions where contest# = ? "
+        cursor.execute("select userName, HeatScore from finishedContestScoresPredictions where cId = ? "
                        "order by HeatScore asc",(cId))
         values = cursor.fetchall()
         count = 0
@@ -114,13 +114,13 @@ def updatePlayerHistory(cId, duration, weatherType, scoringType, conn, cursor):
                                "totalGames = totalGames+1 where userName = ?", (price, row[0]))
             count = count + 1
     elif(weatherType == 'Cold' and scoringType == 'Predictions'):
-        cursor.execute("select count(userName) from finishedContestScoresPredictions where contest# = ?",(cId))
+        cursor.execute("select count(userName) from finishedContestScoresPredictions where cId = ?",(cId))
         totalPlayers = cursor.fetchone()[0]
         prizePool = totalPlayers * price
         firstPrize = prizePool * .5
         secondPrize = prizePool * .3
         thirdPrize = prizePool * .2
-        cursor.execute("select userName, ColdScore from finishedContestScoresPredictions where contest# = ? "
+        cursor.execute("select userName, ColdScore from finishedContestScoresPredictions where cId = ? "
                        "order by ColdScore asc",(cId))
         values = cursor.fetchall()
         count = 0
@@ -176,13 +176,13 @@ def updatePlayerHistory(cId, duration, weatherType, scoringType, conn, cursor):
                                "totalGames = totalGames+1 where userName = ?", (price, row[0]))
             count = count + 1
     elif(weatherType == 'Rain' and scoringType == 'Predictions'):
-        cursor.execute("select count(userName) from finishedContestScoresPredictions where contest# = ?",(cId))
+        cursor.execute("select count(userName) from finishedContestScoresPredictions where cId = ?",(cId))
         totalPlayers = cursor.fetchone()[0]
         prizePool = totalPlayers * price
         firstPrize = prizePool * .5
         secondPrize = prizePool * .3
         thirdPrize = prizePool * .2
-        cursor.execute("select userName, RainScore from finishedContestScoresPredictions where contest# = ? "
+        cursor.execute("select userName, RainScore from finishedContestScoresPredictions where cId = ? "
                        "order by RainScore asc",(cId))
         values = cursor.fetchall()
         count = 0
@@ -238,13 +238,13 @@ def updatePlayerHistory(cId, duration, weatherType, scoringType, conn, cursor):
                                "totalGames = totalGames+1 where userName = ?", (price, row[0]))
             count = count + 1
     else:
-        cursor.execute("select count(userName) from finishedContestScoresPredictions where contest# = ?",(cId))
+        cursor.execute("select count(userName) from finishedContestScoresPredictions where cId = ?",(cId))
         totalPlayers = cursor.fetchone()[0]
         prizePool = totalPlayers * price
         firstPrize = prizePool * .5
         secondPrize = prizePool * .3
         thirdPrize = prizePool * .2
-        cursor.execute("select userName, RainScore from finishedContestScoresPredictions where contest# = ? "
+        cursor.execute("select userName, RainScore from finishedContestScoresPredictions where cId = ? "
                        "order by WindScore asc",(cId))
         values = cursor.fetchall()
         count = 0
