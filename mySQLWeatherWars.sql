@@ -101,9 +101,9 @@ CREATE TABLE paymentInfo (
 
 
 /* all running contests and their players' scores for extremes */
-
+use WeatherWars;
 create view runningContestScoresExtremesDaily
-as select b.cId as contest#, userName, sum(tHigh) as HeatScore, sum(tLow) as ColdScore, sum(rainLevel) as RainScore, sum(windSpeed) as WindScore		/* show player totals */
+as select b.cId as 'contest#', userName, sum(tHigh) as 'HeatScore', sum(tLow) as 'ColdScore', sum(rainLevel) as 'RainScore', sum(windSpeed) as 'WindScore'		
 from buyInto as b join contest as c 
 on b.cId = c.cId 
 join team as t
@@ -112,14 +112,13 @@ join comprisedOf on t.tId = comprisedOf.tId
 join weather 
 on comprisedOf.cName = weather.cName
 where c.status = 'Running' and c.scoringType = 'Extremes' 
-and month(weather.lastUpdated) = month((select DATEADD(day, 1, c.timeCreated)))
-and day(weather.lastUpdated) = day((select DATEADD(day, 1, c.timeCreated)))
-and year(weather.lastUpdated) = year((select DATEADD(day, 1, c.timeCreated)))
+and month(weather.lastUpdated) = month((select DATE_ADD(c.timeCreated, interval 1 day)))
+and day(weather.lastUpdated) = day((select DATE_ADD(c.timeCreated, interval 1 day)))
+and year(weather.lastUpdated) = year((select DATE_ADD(c.timeCreated, interval 1 day)))
 group by b.cId, userName;
-
 
 create view runningContestScoresExtremesWeekly
-as select b.cId as contest#, userName, sum(tHigh) as HeatScore, sum(tLow) as ColdScore, sum(rainLevel) as RainScore, sum(windSpeed) as WindScore		/* show player totals */
+as select b.cId as 'contest#', userName, sum(tHigh) as 'HeatScore', sum(tLow) as 'ColdScore', sum(rainLevel) as 'RainScore', sum(windSpeed) as 'WindScore'		/* show player totals */
 from buyInto as b join contest as c 
 on b.cId = c.cId 
 join team as t
@@ -128,14 +127,13 @@ join comprisedOf on t.tId = comprisedOf.tId
 join weather 
 on comprisedOf.cName = weather.cName
 where c.status = 'Running' and c.scoringType = 'Extremes' 
-and month(weather.lastUpdated) >= month((select DATEADD(day, 3, c.timeCreated))) and month(weather.lastUpdated) <= month((select DATEADD(day, 10, c.timeCreated)))
-and day(weather.lastUpdated) >= day((select DATEADD(day, 3, c.timeCreated))) and day(weather.lastUpdated) <= day((select DATEADD(day, 10, c.timeCreated)))
-and year(weather.lastUpdated) >= year((select DATEADD(day, 3, c.timeCreated))) and year(weather.lastUpdated) >= year((select DATEADD(day, 10, c.timeCreated)))
+and month(weather.lastUpdated) >= month((select DATE_ADD(c.timeCreated, interval 3 day))) and month(weather.lastUpdated) <= month((select DATE_ADD(c.timeCreated, interval 10 day)))
+and day(weather.lastUpdated) >= day((select DATE_ADD(c.timeCreated, interval 3 day))) and day(weather.lastUpdated) <= day((select DATE_ADD(c.timeCreated, interval 10 day)))
+and year(weather.lastUpdated) >= year((select DATE_ADD(c.timeCreated, interval 3 day))) and year(weather.lastUpdated) <= year((select DATE_ADD(c.timeCreated, interval 10 day)))
 group by b.cId, userName;
-
 
 create view runningContestScoresExtremesSeasonal
-as select b.cId as contest#, userName, sum(tHigh) as HeatScore, sum(tLow) as ColdScore, sum(rainLevel) as RainScore, sum(windSpeed) as WindScore		/* show player totals */
+as select b.cId as 'contest#', userName, sum(tHigh) as 'HeatScore', sum(tLow) as 'ColdScore', sum(rainLevel) as 'RainScore', sum(windSpeed) as WindScore		/* show player totals */
 from buyInto as b join contest as c 
 on b.cId = c.cId 
 join team as t
@@ -144,58 +142,54 @@ join comprisedOf on t.tId = comprisedOf.tId
 join weather 
 on comprisedOf.cName = weather.cName
 where c.status = 'Running' and c.scoringType = 'Extremes' 
-and month(weather.lastUpdated) >= month((select DATEADD(day, 7, c.timeCreated))) and month(weather.lastUpdated) <= month((select DATEADD(month, 3, c.timeCreated)))
-and day(weather.lastUpdated) >= day((select DATEADD(day, 7, c.timeCreated))) and day(weather.lastUpdated) <= day((select DATEADD(month, 3, c.timeCreated)))
-and year(weather.lastUpdated) >= year((select DATEADD(day, 7, c.timeCreated))) and year(weather.lastUpdated) >= year((select DATEADD(month, 3, c.timeCreated)))
+and month(weather.lastUpdated) >= month((select DATE_ADD(c.timeCreated, interval 7 day))) and month(weather.lastUpdated) <= month((DATE_ADD(c.timeCreated, interval 3 month)))
+and day(weather.lastUpdated) >= day((select DATE_ADD(c.timeCreated, interval 7 day))) and day(weather.lastUpdated) <= day((select DATE_ADD(c.timeCreated, interval 3 month)))
+and year(weather.lastUpdated) >= year((select DATE_ADD(c.timeCreated, interval 7 day))) and year(weather.lastUpdated) <= year((select DATE_ADD(c.timeCreated, interval 3 month)))
 group by b.cId, userName;
-
 
 create view runningContestScoresPredictionsDaily
-as select b.cId, userName, sum(abs(prediction - tHigh)) as HeatScore, sum(abs(prediction - tLow)) as ColdScore,
-sum(abs(prediction - rainLevel)) as RainScore, sum(abs(prediction - windSpeed)) as WindScore						/* show score based on prediction */
+as select b.cId, userName, sum(abs(prediction - tHigh)) as 'HeatScore', sum(abs(prediction - tLow)) as 'ColdScore',
+sum(abs(prediction - rainLevel)) as 'RainScore', sum(abs(prediction - windSpeed)) as 'WindScore'						/* show score based on prediction */
 from buyInto as b join contest as c on b.cId = c.cId
 join team as t on b.tId = t.tId
 join comprisedOf as cO on t.tId = cO.tId
 join weather on cO.cName = weather.cName
 where c.status = 'Running' and c.scoringType = 'Predictions'
-and month(weather.lastUpdated) = month((select DATEADD(day, 1, c.timeCreated)))
-and day(weather.lastUpdated) = day((select DATEADD(day, 1, c.timeCreated)))
-and year(weather.lastUpdated) = year((select DATEADD(day, 1, c.timeCreated)))
+and month(weather.lastUpdated) = month((select DATE_ADD(c.timeCreated, interval 1 day)))
+and day(weather.lastUpdated) = day((select DATE_ADD(c.timeCreated, interval 1 day)))
+and year(weather.lastUpdated) = year((select DATE_ADD(c.timeCreated, interval 1 day)))
 group by b.cId, userName;
-
 
 create view runningContestScoresPredictionsWeekly
-as select b.cId, userName, sum(abs(prediction - tHigh)) as HeatScore, sum(abs(prediction - tLow)) as ColdScore,
-sum(abs(prediction - rainLevel)) as RainScore, sum(abs(prediction - windSpeed)) as WindScore						/* show score based on prediction */
+as select b.cId, userName, sum(abs(prediction - tHigh)) as 'HeatScore', sum(abs(prediction - tLow)) as 'ColdScore',
+sum(abs(prediction - rainLevel)) as 'RainScore', sum(abs(prediction - windSpeed)) as 'WindScore'						/* show score based on prediction */
 from buyInto as b join contest as c on b.cId = c.cId
 join team as t on b.tId = t.tId
 join comprisedOf as cO on t.tId = cO.tId
 join weather on cO.cName = weather.cName
 where c.status = 'Running' and c.scoringType = 'Predictions'
-and month(weather.lastUpdated) >= month((select DATEADD(day, 3, c.timeCreated))) and month(weather.lastUpdated) <= month((select DATEADD(day, 10, c.timeCreated)))
-and day(weather.lastUpdated) >= day((select DATEADD(day, 3, c.timeCreated))) and day(weather.lastUpdated) <= day((select DATEADD(day, 10, c.timeCreated)))
-and year(weather.lastUpdated) >= year((select DATEADD(day, 3, c.timeCreated))) and year(weather.lastUpdated) >= year((select DATEADD(day, 10, c.timeCreated)))
+and month(weather.lastUpdated) >= month((select DATE_ADD(c.timeCreated, interval 3 day))) and month(weather.lastUpdated) <= month((select DATE_ADD(c.timeCreated, interval 10 day)))
+and day(weather.lastUpdated) >= day((select DATE_ADD(c.timeCreated, interval 3 day))) and day(weather.lastUpdated) <= day((select DATE_ADD(c.timeCreated, interval 10 day)))
+and year(weather.lastUpdated) >= year((select DATE_ADD(c.timeCreated, interval 3 day))) and year(weather.lastUpdated) <= year((select DATE_ADD(c.timeCreated, interval 10 day)))
 group by b.cId, userName;
-
 
 
 create view runningContestScoresPredictionsSeasonal
-as select b.cId, userName, sum(abs(prediction - tHigh)) as HeatScore, sum(abs(prediction - tLow)) as ColdScore,
-sum(abs(prediction - rainLevel)) as RainScore, sum(abs(prediction - windSpeed)) as WindScore						/* show score based on prediction */
+as select b.cId, userName, sum(abs(prediction - tHigh)) as 'HeatScore', sum(abs(prediction - tLow)) as 'ColdScore',
+sum(abs(prediction - rainLevel)) as 'RainScore', sum(abs(prediction - windSpeed)) as 'WindScore'						/* show score based on prediction */
 from buyInto as b join contest as c on b.cId = c.cId
 join team as t on b.tId = t.tId
 join comprisedOf as cO on t.tId = cO.tId
 join weather on cO.cName = weather.cName
 where c.status = 'Running' and c.scoringType = 'Predictions'
-and month(weather.lastUpdated) >= month((select DATEADD(day, 7, c.timeCreated))) and month(weather.lastUpdated) <= month((select DATEADD(month, 3, c.timeCreated)))
-and day(weather.lastUpdated) >= day((select DATEADD(day, 7, c.timeCreated))) and day(weather.lastUpdated) <= day((select DATEADD(month, 3, c.timeCreated)))
-and year(weather.lastUpdated) >= year((select DATEADD(day, 7, c.timeCreated))) and year(weather.lastUpdated) >= year((select DATEADD(month, 3, c.timeCreated)))
+and month(weather.lastUpdated) >= month((select DATE_ADD(c.timeCreated, interval 7 day))) and month(weather.lastUpdated) <= month((select DATE_ADD(c.timeCreated, interval 3 month)))
+and day(weather.lastUpdated) >= day((select DATE_ADD(c.timeCreated, interval 7 day))) and day(weather.lastUpdated) <= day((select DATE_ADD(c.timeCreated, interval 3 month)))
+and year(weather.lastUpdated) >= year((select DATE_ADD(c.timeCreated, interval 7 day))) and year(weather.lastUpdated) <= year((select DATE_ADD(c.timeCreated, interval 3 month)))
 group by b.cId, userName;
 
 
-
 create view finishedContestScoresExtremesDaily
-as select b.cId as contest#, userName, sum(tHigh) as HeatScore, sum(tLow) as ColdScore, sum(rainLevel) as RainScore, sum(windSpeed) as WindScore		/* show player totals */
+as select b.cId as 'contest#', userName, sum(tHigh) as 'HeatScore', sum(tLow) as 'ColdScore', sum(rainLevel) as 'RainScore', sum(windSpeed) as 'WindScore'		/* show player totals */
 from buyInto as b join contest as c 
 on b.cId = c.cId 
 join team as t
@@ -204,14 +198,14 @@ join comprisedOf on t.tId = comprisedOf.tId
 join weather 
 on comprisedOf.cName = weather.cName
 where c.status = 'Finished' and c.scoringType = 'Extremes' 
-and month(weather.lastUpdated) = month((select DATEADD(day, 1, c.timeCreated)))
-and day(weather.lastUpdated) = day((select DATEADD(day, 1, c.timeCreated)))
-and year(weather.lastUpdated) = year((select DATEADD(day, 1, c.timeCreated)))
+and month(weather.lastUpdated) = month((select DATE_ADD(c.timeCreated, interval 1 day)))
+and day(weather.lastUpdated) = day((select DATE_ADD(c.timeCreated, interval 1 day)))
+and year(weather.lastUpdated) = year((select DATE_ADD(c.timeCreated, interval 1 day)))
 group by b.cId, userName;
 
 
 create view finishedContestScoresExtremesWeekly
-as select b.cId as contest#, userName, sum(tHigh) as HeatScore, sum(tLow) as ColdScore, sum(rainLevel) as RainScore, sum(windSpeed) as WindScore		/* show player totals */
+as select b.cId as 'contest#', userName, sum(tHigh) as 'HeatScore', sum(tLow) as 'ColdScore', sum(rainLevel) as 'RainScore', sum(windSpeed) as 'WindScore'		/* show player totals */
 from buyInto as b join contest as c 
 on b.cId = c.cId 
 join team as t
@@ -220,14 +214,14 @@ join comprisedOf on t.tId = comprisedOf.tId
 join weather 
 on comprisedOf.cName = weather.cName
 where c.status = 'Finished' and c.scoringType = 'Extremes' 
-and month(weather.lastUpdated) >= month((select DATEADD(day, 3, c.timeCreated))) and month(weather.lastUpdated) <= month((select DATEADD(day, 10, c.timeCreated)))
-and day(weather.lastUpdated) >= day((select DATEADD(day, 3, c.timeCreated))) and day(weather.lastUpdated) <= day((select DATEADD(day, 10, c.timeCreated)))
-and year(weather.lastUpdated) >= year((select DATEADD(day, 3, c.timeCreated))) and year(weather.lastUpdated) >= year((select DATEADD(day, 10, c.timeCreated)))
+and month(weather.lastUpdated) >= month((select DATE_ADD(c.timeCreated, interval 3 day))) and month(weather.lastUpdated) <= month((select DATE_ADD(c.timeCreated, interval 10 day)))
+and day(weather.lastUpdated) >= day((select DATE_ADD(c.timeCreated, interval 10 day))) and day(weather.lastUpdated) <= day((select DATE_ADD(c.timeCreated, interval 10 day)))
+and year(weather.lastUpdated) >= year((select DATE_ADD(c.timeCreated, interval 10 day))) and year(weather.lastUpdated) <= year((select DATE_ADD(c.timeCreated, interval 10 day)))
 group by b.cId, userName;
 
 
 create view finishedContestScoresExtremesSeasonal
-as select b.cId as contest#, userName, sum(tHigh) as HeatScore, sum(tLow) as ColdScore, sum(rainLevel) as RainScore, sum(windSpeed) as WindScore		/* show player totals */
+as select b.cId as 'contest#', userName, sum(tHigh) as 'HeatScore', sum(tLow) as 'ColdScore', sum(rainLevel) as 'RainScore', sum(windSpeed) as 'WindScore'		/* show player totals */
 from buyInto as b join contest as c 
 on b.cId = c.cId 
 join team as t
@@ -236,50 +230,52 @@ join comprisedOf on t.tId = comprisedOf.tId
 join weather 
 on comprisedOf.cName = weather.cName
 where c.status = 'Finished' and c.scoringType = 'Extremes' 
-and month(weather.lastUpdated) >= month((select DATEADD(day, 7, c.timeCreated))) and month(weather.lastUpdated) <= month((select DATEADD(month, 3, c.timeCreated)))
-and day(weather.lastUpdated) >= day((select DATEADD(day, 7, c.timeCreated))) and day(weather.lastUpdated) <= day((select DATEADD(month, 3, c.timeCreated)))
-and year(weather.lastUpdated) >= year((select DATEADD(day, 7, c.timeCreated))) and year(weather.lastUpdated) >= year((select DATEADD(month, 3, c.timeCreated)))
+and month(weather.lastUpdated) >= month((select DATE_ADD(c.timeCreated, interval 7 day))) and month(weather.lastUpdated) <= month((select DATE_ADD(c.timeCreated, interval 3 month)))
+and day(weather.lastUpdated) >= day((select DATE_ADD(c.timeCreated, interval 7 day))) and day(weather.lastUpdated) <= day((select DATE_ADD(c.timeCreated, interval 3 month)))
+and year(weather.lastUpdated) >= year((select DATE_ADD(c.timeCreated, interval 7 day))) and year(weather.lastUpdated) <= year((select DATE_ADD(c.timeCreated, interval 3 month)))
 group by b.cId, userName;
 
 
 create view finishedContestScoresPredictionsDaily
-as select b.cId, userName, sum(abs(prediction - tHigh)) as HeatScore, sum(abs(prediction - tLow)) as ColdScore,
-sum(abs(prediction - rainLevel)) as RainScore, sum(abs(prediction - windSpeed)) as WindScore						/* show score based on prediction */
+as select b.cId, userName, sum(abs(prediction - tHigh)) as 'HeatScore', sum(abs(prediction - tLow)) as 'ColdScore',
+sum(abs(prediction - rainLevel)) as 'RainScore', sum(abs(prediction - windSpeed)) as 'WindScore'						/* show score based on prediction */
 from buyInto as b join contest as c on b.cId = c.cId
 join team as t on b.tId = t.tId
 join comprisedOf as cO on t.tId = cO.tId
 join weather on cO.cName = weather.cName
 where c.status = 'Finished' and c.scoringType = 'Predictions'
-and month(weather.lastUpdated) = month((select DATEADD(day, 1, c.timeCreated)))
-and day(weather.lastUpdated) = day((select DATEADD(day, 1, c.timeCreated)))
-and year(weather.lastUpdated) = year((select DATEADD(day, 1, c.timeCreated)))
+and month(weather.lastUpdated) = month((select DATE_ADD(c.timeCreated, interval 1 day)))
+and day(weather.lastUpdated) = day((select DATE_ADD(c.timeCreated, interval 1 day)))
+and year(weather.lastUpdated) = year((select DATE_ADD(c.timeCreated, interval 1 day)))
 group by b.cId, userName;
 
-
+use WeatherWars;
 create view finishedContestScoresPredictionsWeekly
-as select b.cId, userName, sum(abs(prediction - tHigh)) as HeatScore, sum(abs(prediction - tLow)) as ColdScore,
-sum(abs(prediction - rainLevel)) as RainScore, sum(abs(prediction - windSpeed)) as WindScore						/* show score based on prediction */
+as select b.cId, userName, sum(abs(prediction - tHigh)) as 'HeatScore', sum(abs(prediction - tLow)) as 'ColdScore',
+sum(abs(prediction - rainLevel)) as 'RainScore', sum(abs(prediction - windSpeed)) as 'WindScore'						/* show score based on prediction */
 from buyInto as b join contest as c on b.cId = c.cId
 join team as t on b.tId = t.tId
 join comprisedOf as cO on t.tId = cO.tId
 join weather on cO.cName = weather.cName
 where c.status = 'Finished' and c.scoringType = 'Predictions'
-and month(weather.lastUpdated) >= month((select DATEADD(day, 3, c.timeCreated))) and month(weather.lastUpdated) <= month((select DATEADD(day, 10, c.timeCreated)))
-and day(weather.lastUpdated) >= day((select DATEADD(day, 3, c.timeCreated))) and day(weather.lastUpdated) <= day((select DATEADD(day, 10, c.timeCreated)))
-and year(weather.lastUpdated) >= year((select DATEADD(day, 3, c.timeCreated))) and year(weather.lastUpdated) >= year((select DATEADD(day, 10, c.timeCreated)))
+and month(weather.lastUpdated) >= month((select DATE_ADD(c.timeCreated, interval 3 day))) and month(weather.lastUpdated) <= month((select DATE_ADD(c.timeCreated, interval 10 day)))
+and day(weather.lastUpdated) >= day((select DATE_ADD(c.timeCreated, interval 3 day))) and day(weather.lastUpdated) <= day((select DATE_ADD(c.timeCreated, interval 10 day)))
+and year(weather.lastUpdated) >= year((select DATE_ADD(c.timeCreated, interval 3 day))) and year(weather.lastUpdated) <= year((select DATE_ADD(c.timeCreated, interval 10 day)))
 group by b.cId, userName;
 
 
 
 create view finishedContestScoresPredictionsSeasonal
-as select b.cId, userName, sum(abs(prediction - tHigh)) as HeatScore, sum(abs(prediction - tLow)) as ColdScore,
-sum(abs(prediction - rainLevel)) as RainScore, sum(abs(prediction - windSpeed)) as WindScore						/* show score based on prediction */
+as select b.cId, userName, sum(abs(prediction - tHigh)) as 'HeatScore', sum(abs(prediction - tLow)) as 'ColdScore',
+sum(abs(prediction - rainLevel)) as 'RainScore', sum(abs(prediction - windSpeed)) as 'WindScore'						/* show score based on prediction */
 from buyInto as b join contest as c on b.cId = c.cId
 join team as t on b.tId = t.tId
 join comprisedOf as cO on t.tId = cO.tId
 join weather on cO.cName = weather.cName
 where c.status = 'Finished' and c.scoringType = 'Predictions'
-and month(weather.lastUpdated) >= month((select DATEADD(day, 7, c.timeCreated))) and month(weather.lastUpdated) <= month((select DATEADD(month, 3, c.timeCreated)))
-and day(weather.lastUpdated) >= day((select DATEADD(day, 7, c.timeCreated))) and day(weather.lastUpdated) <= day((select DATEADD(month, 3, c.timeCreated)))
-and year(weather.lastUpdated) >= year((select DATEADD(day, 7, c.timeCreated))) and year(weather.lastUpdated) >= year((select DATEADD(month, 3, c.timeCreated)))
+and month(weather.lastUpdated) >= month((select DATE_ADD(c.timeCreated, interval 7 day))) and month(weather.lastUpdated) <= month((select DATE_ADD(c.timeCreated, interval 3 month)))
+and day(weather.lastUpdated) >= day((select DATE_ADD(c.timeCreated, interval 7 day))) and day(weather.lastUpdated) <= day((select DATE_ADD(c.timeCreated, interval 3 month)))
+and year(weather.lastUpdated) >= year((select DATE_ADD(c.timeCreated, interval 7 day))) and year(weather.lastUpdated) <= year((select DATE_ADD(c.timeCreated, interval 3 month)))
 group by b.cId, userName;
+
+
