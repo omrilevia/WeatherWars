@@ -29,55 +29,55 @@ from time import sleep
 
 def dailyContest(cursor, conn):
     now = datetime.now()
-    cursor.execute("insert into contest values ('Heat','Daily','Extremes','classic',?,'Pending')",(now))
-    cursor.execute("insert into contest values ('Heat','Daily','Predictions','classic',?,'Pending')",(now))
-    cursor.execute("insert into contest values ('Cold','Daily','Extremes','classic',?,'Pending')",(now))
-    cursor.execute("insert into contest values ('Cold','Daily','Predictions','classic',?,'Pending')",(now))
-    cursor.execute("insert into contest values ('Wind','Daily','Extremes','classic',?,'Pending')",(now))
-    cursor.execute("insert into contest values ('Wind','Daily','Predictions','classic',?,'Pending')",(now))
-    cursor.execute("insert into contest values ('Rain','Daily','Extremes','classic',?,'Pending')",(now))
-    cursor.execute("insert into contest values ('Rain','Daily','Extremes','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Heat','Daily','Extremes','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Heat','Daily','Predictions','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Cold','Daily','Extremes','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Cold','Daily','Predictions','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Wind','Daily','Extremes','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Wind','Daily','Predictions','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Rain','Daily','Extremes','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Rain','Daily','Extremes','classic',?,'Pending')",(now))
     
     conn.commit()
 
 def dailyContestHeatExtremes(cursor,conn):
     now = datetime.now()
-    cursor.execute("insert into contest values ('Heat','Daily','Extremes','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Heat','Daily','Extremes','classic',?,'Pending')",(now))
     conn.commit()
 
 def dailyContestHeatPredictions(cursor,conn):
     now = datetime.now()
-    cursor.execute("insert into contest values ('Heat','Daily','Predictions','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Heat','Daily','Predictions','classic',?,'Pending')",(now))
     conn.commit()
 
 def dailyContestColdExtremes(cursor,conn):
     now = datetime.now()
-    cursor.execute("insert into contest values ('Cold','Daily','Extremes','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Cold','Daily','Extremes','classic',?,'Pending')",(now))
     conn.commit()
 
 def dailyContestColdPredictions(cursor,conn):
     now = datetime.now()
-    cursor.execute("insert into contest values ('Cold','Daily','Predictions','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Cold','Daily','Predictions','classic',?,'Pending')",(now))
     conn.commit()
 
 def dailyContestWindExtremes(cursor, conn):
     now = datetime.now()
-    cursor.execute("insert into contest values ('Wind','Daily','Extremes','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Wind','Daily','Extremes','classic',?,'Pending')",(now))
     conn.commit()
 
 def dailyContestWindPredictions(cursor, conn):
     now = datetime.now()
-    cursor.execute("insert into contest values ('Wind','Daily','Predictions','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Wind','Daily','Predictions','classic',?,'Pending')",(now))
     conn.commit()
 
 def dailyContestRainExtremes(cursor, conn):
     now = datetime.now()
-    cursor.execute("insert into contest values ('Rain','Daily','Extremes','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Rain','Daily','Extremes','classic',?,'Pending')",(now))
     conn.commit()
 
 def dailyContestRainPredictions(cursor, conn):
     now = datetime.now()
-    cursor.execute("insert into contest values ('Rain','Daily','Predictions','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Rain','Daily','Predictions','classic',?,'Pending')",(now))
     conn.commit()
 
 
@@ -86,55 +86,55 @@ def dailyContestRainPredictions(cursor, conn):
 
 def weeklyContest(cursor, conn):
     now = datetime.now()
-    cursor.execute("insert into contest values ('Heat','Weekly','Extremes','classic',?,'Pending')",(now))
-    cursor.execute("insert into contest values ('Heat','Weekly','Predictions','classic',?,'Pending')",(now))
-    cursor.execute("insert into contest values ('Cold','Weekly','Extremes','classic',?,'Pending')",(now))
-    cursor.execute("insert into contest values ('Cold','Weekly','Predictions','classic',?,'Pending')",(now))
-    cursor.execute("insert into contest values ('Wind','Weekly','Extremes','classic',?,'Pending')",(now))
-    cursor.execute("insert into contest values ('Wind','Weekly','Predictions','classic',?,'Pending')",(now))
-    cursor.execute("insert into contest values ('Rain','Weekly','Extremes','classic',?,'Pending')",(now))
-    cursor.execute("insert into contest values ('Rain','Weekly','Extremes','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Heat','Weekly','Extremes','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Heat','Weekly','Predictions','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Cold','Weekly','Extremes','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Cold','Weekly','Predictions','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Wind','Weekly','Extremes','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Wind','Weekly','Predictions','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Rain','Weekly','Extremes','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Rain','Weekly','Extremes','classic',?,'Pending')",(now))
     
     conn.commit()
 
 def weeklyContestHeatExtremes(cursor,conn):
     now = datetime.now()
-    cursor.execute("insert into contest values ('Heat','Weekly','Extremes','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Heat','Weekly','Extremes','classic',?,'Pending')",(now))
     conn.commit()
 
 def weeklyContestHeatPredictions(cursor,conn):
     now = datetime.now()
-    cursor.execute("insert into contest values ('Heat','Weekly','Predictions','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Heat','Weekly','Predictions','classic',?,'Pending')",(now))
     conn.commit()
 
 def weeklyContestColdExtremes(cursor,conn):
     now = datetime.now()
-    cursor.execute("insert into contest values ('Cold','Weekly','Extremes','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Cold','Weekly','Extremes','classic',?,'Pending')",(now))
     conn.commit()
 
 def weeklyContestColdPredictions(cursor,conn):
     now = datetime.now()
-    cursor.execute("insert into contest values ('Cold','Weekly','Predictions','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Cold','Weekly','Predictions','classic',?,'Pending')",(now))
     conn.commit()
 
 def weeklyContestWindExtremes(cursor, conn):
     now = datetime.now()
-    cursor.execute("insert into contest values ('Wind','Weekly','Extremes','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Wind','Weekly','Extremes','classic',?,'Pending')",(now))
     conn.commit()
 
 def weeklyContestWindPredictions(cursor, conn):
     now = datetime.now()
-    cursor.execute("insert into contest values ('Wind','Weekly','Predictions','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Wind','Weekly','Predictions','classic',?,'Pending')",(now))
     conn.commit()
 
 def weeklyContestRainExtremes(cursor, conn):
     now = datetime.now()
-    cursor.execute("insert into contest values ('Rain','Weekly','Extremes','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Rain','Weekly','Extremes','classic',?,'Pending')",(now))
     conn.commit()
 
 def weeklyContestRainPredictions(cursor, conn):
     now = datetime.now()
-    cursor.execute("insert into contest values ('Rain','Weekly','Predictions','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Rain','Weekly','Predictions','classic',?,'Pending')",(now))
     conn.commit()
 
 
@@ -143,55 +143,55 @@ def weeklyContestRainPredictions(cursor, conn):
 
 def seasonalContest(cursor, conn):
     now = datetime.now()
-    cursor.execute("insert into contest values ('Heat','Seasonal','Extremes','classic',?,'Pending')",(now))
-    cursor.execute("insert into contest values ('Heat','Seasonal','Predictions','classic',?,'Pending')",(now))
-    cursor.execute("insert into contest values ('Cold','Seasonal','Extremes','classic',?,'Pending')",(now))
-    cursor.execute("insert into contest values ('Cold','Seasonal','Predictions','classic',?,'Pending')",(now))
-    cursor.execute("insert into contest values ('Wind','Seasonal','Extremes','classic',?,'Pending')",(now))
-    cursor.execute("insert into contest values ('Wind','Seasonal','Predictions','classic',?,'Pending')",(now))
-    cursor.execute("insert into contest values ('Rain','Seasonal','Extremes','classic',?,'Pending')",(now))
-    cursor.execute("insert into contest values ('Rain','Seasonal','Predictions ','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Heat','Seasonal','Extremes','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Heat','Seasonal','Predictions','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Cold','Seasonal','Extremes','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Cold','Seasonal','Predictions','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Wind','Seasonal','Extremes','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Wind','Seasonal','Predictions','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Rain','Seasonal','Extremes','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Rain','Seasonal','Predictions','classic',?,'Pending')",(now))
     
     conn.commit()
 
 def seasonalContestHeatExtremes(cursor,conn):
     now = datetime.now()
-    cursor.execute("insert into contest values ('Heat','Seasonal','Extremes','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Heat','Seasonal','Extremes','classic',?,'Pending')",(now))
     conn.commit()
 
 def seasonalContestHeatPredictions(cursor,conn):
     now = datetime.now()
-    cursor.execute("insert into contest values ('Heat','Seasonal','Predictions','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Heat','Seasonal','Predictions','classic',?,'Pending')",(now))
     conn.commit()
 
 def seasonalContestColdExtremes(cursor,conn):
     now = datetime.now()
-    cursor.execute("insert into contest values ('Cold','Seasonal','Extremes','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Cold','Seasonal','Extremes','classic',?,'Pending')",(now))
     conn.commit()
 
 def seasonalContestColdPredictions(cursor,conn):
     now = datetime.now()
-    cursor.execute("insert into contest values ('Cold','Seasonal','Predictions','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Cold','Seasonal','Predictions','classic',?,'Pending')",(now))
     conn.commit()
 
 def seasonalContestWindExtremes(cursor, conn):
     now = datetime.now()
-    cursor.execute("insert into contest values ('Wind','Seasonal','Extremes','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Wind','Seasonal','Extremes','classic',?,'Pending')",(now))
     conn.commit()
 
 def seasonalContestWindPredictions(cursor, conn):
     now = datetime.now()
-    cursor.execute("insert into contest values ('Wind','Seasonal','Predictions','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Wind','Seasonal','Predictions','classic',?,'Pending')",(now))
     conn.commit()
 
 def seasonalContestRainExtremes(cursor, conn):
     now = datetime.now()
-    cursor.execute("insert into contest values ('Rain','Seasonal','Extremes','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Rain','Seasonal','Extremes','classic',?,'Pending')",(now))
     conn.commit()
 
 def seasonalContestRainPredictions(cursor, conn):
     now = datetime.now()
-    cursor.execute("insert into contest values ('Rain','Seasonal','Predictions','classic',?,'Pending')",(now))
+    cursor.execute("insert into contest (weatherType, duration, scoringType, rotatingType, timeCreated, status) values ('Rain','Seasonal','Predictions','classic',?,'Pending')",(now))
     conn.commit()
 
 
@@ -206,7 +206,7 @@ def updateContestsAndCreateNew(conn, cursor):
         dailyContest(cursor,conn)
         weeklyContest(cursor,conn)
         seasonalContest(cursor,conn)
-    cursor.execute("select cId, Duration, timeCreated from contest where status = 'Pending'")
+    cursor.execute("select cId, Duration, timeCreated, status from contest where status = 'Pending'")
     values = cursor.fetchall()
     for row in values:
         delta = now - row[2]
@@ -219,7 +219,7 @@ def updateContestsAndCreateNew(conn, cursor):
     conn.commit()
     
     now = datetime.now()
-    cursor.execute("select cId, Duration, timeCreated, weatherType, scoringType from contest where status = 'Running'")
+    cursor.execute("select cId, Duration, timeCreated, status, weatherType, scoringType from contest where status = 'Running'")
     values = cursor.fetchall()
     for row in values:
         delta = now - row[2]

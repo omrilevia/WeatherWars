@@ -17,18 +17,15 @@ import pyodbc
 import requests
 
 def main():
-    conn = pyodbc.connect('Driver={ODBC Driver 17 for SQL Server};'
-                      'Server=LAPTOP-RC2ANL8F\SQLEXPRESS;'
-                      'Database=WeatherWars;'
-                      'Trusted_Connection=yes;')
+    conn = pyodbc.connect("DRIVER={MySQL ODBC 8.0 Unicode Driver};user=root;password=Ankit6131;database=WeatherWars;")
     cursor = conn.cursor()
-    #populateCities(conn,cursor)
+    populateCities(conn,cursor)
     fetchWeatherData(conn, cursor)
     updateContestsAndCreateNew(conn,cursor)
-    playerOne = ['playerOne', 'password','11-15-1995','playerOne@gmail.com','4081111111']
-    playerTwo = ['bigChungus', 'password','11-15-1995','chungus@gmail.com','9501231324']
-    playerThree = ['chigBungus', 'password','2-12-1996','three@gmail.com', '4087335228']
-    playerFour = ['notABot', 'password', '1-1-1980', 'four@gmail.com','1234567890']
+    playerOne = ['playerOne', 'password','1995-11-15','playerOne@gmail.com','4081111111']
+    playerTwo = ['bigChungus', 'password','1995-11-15','chungus@gmail.com','9501231324']
+    playerThree = ['chigBungus', 'password','1996-11-2','three@gmail.com', '4087335228']
+    playerFour = ['notABot', 'password', '1980-1-1', 'four@gmail.com','1234567890']
     playerInfo = [playerOne,playerTwo,playerThree,playerFour]
     addNewPlayer(playerInfo,conn,cursor)
     tenCities = {'New York':40, 'Seattle':50, 'San Jose':75, 'Phoenix':80, 'Las Vegas':80, 'Honolulu':80, 'Atlanta':65, 'Boulder':70, 'Boston':35, 'Miami':69}
