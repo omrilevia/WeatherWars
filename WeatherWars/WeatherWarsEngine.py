@@ -13,6 +13,7 @@ from populateCities import populateCities
 from newPlayer import addNewPlayer
 from playerJoinsContest import playerJoinsContestExtremes
 from playerJoinsContest import playerJoinsContestPredictions
+from contestManager import dailyContest
 import pyodbc
 import requests
 
@@ -31,6 +32,7 @@ def main():
     tenCities = {'New York':40, 'Seattle':50, 'San Jose':75, 'Phoenix':80, 'Las Vegas':80, 'Honolulu':80, 'Atlanta':65, 'Boulder':70, 'Boston':35, 'Miami':69}
     #playerJoinsContestExtremes('playerOne', 'aTeam', 0, tenCities, cursor, conn)
     playerJoinsContestPredictions('playerOne', 'aTeam', 9, tenCities, cursor, conn)
+    dailyContest(cursor,conn)
 
 if __name__ == "__main__":
     main()

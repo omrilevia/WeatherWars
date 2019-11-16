@@ -47,7 +47,10 @@ def updatePlayerHistory(cId, duration, weatherType, scoringType, conn, cursor):
             if count == 0:
                 cursor.execute("select currentStreak, maxStreak from history where userName = ?",(row[0]))
                 streaks = cursor.fetchone()
-                if (streaks[0] == streaks[1]):
+                if (streaks[0] == streaks[1] and streaks[0] > 2):
+                    cursor.execute("update history set earnings = earnings+?, currentStreak = ?, maxStreak = ?, "
+                                   "gamesWon = gamesWon+1, totalGames=totalGames+1 where userName = ?",(firstPrize * 1.1,streaks[1]+1,streaks[1]+1, row[0]))
+                elif(streaks[0] == streaks[1]):
                     cursor.execute("update history set earnings = earnings+?, currentStreak = ?, maxStreak = ?, "
                                    "gamesWon = gamesWon+1, totalGames=totalGames+1 where userName = ?",(firstPrize,streaks[1]+1,streaks[1]+1, row[0]))
                 else:
@@ -90,7 +93,10 @@ def updatePlayerHistory(cId, duration, weatherType, scoringType, conn, cursor):
             if count == 0:
                 cursor.execute("select currentStreak, maxStreak from history where userName = ?",(row[0]))
                 streaks = cursor.fetchall()
-                if (streaks[0] == streaks[1]):
+                if (streaks[0] == streaks[1] and streaks[0] > 2):
+                    cursor.execute("update history set earnings = earnings+?, currentStreak = ?, maxStreak = ?, "
+                                   "gamesWon = gamesWon+1, totalGames=totalGames+1 where userName = ?",(firstPrize * 1.1 ,streaks[1]+1,streaks[1]+1, row[0]))
+                elif (streaks[0] == streaks[1]):
                     cursor.execute("update history set earnings = earnings+?, currentStreak = ?, maxStreak = ?, "
                                    "gamesWon = gamesWon+1, totalGames=totalGames+1 where userName = ?",(firstPrize,streaks[1]+1,streaks[1]+1, row[0]))
                 else:
@@ -133,7 +139,10 @@ def updatePlayerHistory(cId, duration, weatherType, scoringType, conn, cursor):
             if count == 0:
                 cursor.execute("select currentStreak, maxStreak from history where userName = ?",(row[0]))
                 streaks = cursor.fetchall()
-                if (streaks[0] == streaks[1]):
+                if (streaks[0] == streaks[1] and streaks[0]):
+                    cursor.execute("update history set earnings = earnings+?, currentStreak = ?, maxStreak = ?, "
+                                   "gamesWon = gamesWon+1, totalGames=totalGames+1 where userName = ?",(firstPrize * 1.1,streaks[1]+1,streaks[1]+1, row[0]))
+                elif (streaks[0] == streaks[1] and streaks[0] > 2):
                     cursor.execute("update history set earnings = earnings+?, currentStreak = ?, maxStreak = ?, "
                                    "gamesWon = gamesWon+1, totalGames=totalGames+1 where userName = ?",(firstPrize,streaks[1]+1,streaks[1]+1, row[0]))
                 else:
@@ -176,7 +185,10 @@ def updatePlayerHistory(cId, duration, weatherType, scoringType, conn, cursor):
             if count == 0:
                 cursor.execute("select currentStreak, maxStreak from history where userName = ?",(row[0]))
                 streaks = cursor.fetchall()
-                if (streaks[0] == streaks[1]):
+                if (streaks[0] == streaks[1] and streaks[0] > 2):
+                    cursor.execute("update history set earnings = earnings+?, currentStreak = ?, maxStreak = ?, "
+                                   "gamesWon = gamesWon+1, totalGames=totalGames+1 where userName = ?",(firstPrize * 1.1,streaks[1]+1,streaks[1]+1, row[0]))
+                elif (streaks[0] == streaks[1]):
                     cursor.execute("update history set earnings = earnings+?, currentStreak = ?, maxStreak = ?, "
                                    "gamesWon = gamesWon+1, totalGames=totalGames+1 where userName = ?",(firstPrize,streaks[1]+1,streaks[1]+1, row[0]))
                 else:
@@ -219,7 +231,10 @@ def updatePlayerHistory(cId, duration, weatherType, scoringType, conn, cursor):
             if count == 0:
                 cursor.execute("select currentStreak, maxStreak from history where userName = ?",(row[0]))
                 streaks = cursor.fetchall()
-                if (streaks[0] == streaks[1]):
+                if (streaks[0] == streaks[1] and streaks[0] > 2):
+                    cursor.execute("update history set earnings = earnings+?, currentStreak = ?, maxStreak = ?, "
+                                   "gamesWon = gamesWon+1, totalGames=totalGames+1 where userName = ?",(firstPrize * 1.1,streaks[1]+1,streaks[1]+1, row[0]))
+                elif (streaks[0] == streaks[1]):
                     cursor.execute("update history set earnings = earnings+?, currentStreak = ?, maxStreak = ?, "
                                    "gamesWon = gamesWon+1, totalGames=totalGames+1 where userName = ?",(firstPrize,streaks[1]+1,streaks[1]+1, row[0]))
                 else:
@@ -262,7 +277,10 @@ def updatePlayerHistory(cId, duration, weatherType, scoringType, conn, cursor):
             if count == 0:
                 cursor.execute("select currentStreak, maxStreak from history where userName = ?",(row[0]))
                 streaks = cursor.fetchall()
-                if (streaks[0] == streaks[1]):
+                if (streaks[0] == streaks[1] and streaks[0] > 2):
+                    cursor.execute("update history set earnings = earnings+?, currentStreak = ?, maxStreak = ?, "
+                                   "gamesWon = gamesWon+1, totalGames=totalGames+1 where userName = ?",(firstPrize * 1.1,streaks[1]+1,streaks[1]+1, row[0]))
+                elif (streaks[0] == streaks[1]):
                     cursor.execute("update history set earnings = earnings+?, currentStreak = ?, maxStreak = ?, "
                                    "gamesWon = gamesWon+1, totalGames=totalGames+1 where userName = ?",(firstPrize,streaks[1]+1,streaks[1]+1, row[0]))
                 else:
@@ -305,7 +323,10 @@ def updatePlayerHistory(cId, duration, weatherType, scoringType, conn, cursor):
             if count == 0:
                 cursor.execute("select currentStreak, maxStreak from history where userName = ?",(row[0]))
                 streaks = cursor.fetchall()
-                if (streaks[0] == streaks[1]):
+                if (streaks[0] == streaks[1] and streaks[0] > 2):
+                    cursor.execute("update history set earnings = earnings+?, currentStreak = ?, maxStreak = ?, "
+                                   "gamesWon = gamesWon+1, totalGames=totalGames+1 where userName = ?",(firstPrize * 1.1,streaks[1]+1,streaks[1]+1, row[0]))
+                elif (streaks[0] == streaks[1] and streaks[0] > 2):
                     cursor.execute("update history set earnings = earnings+?, currentStreak = ?, maxStreak = ?, "
                                    "gamesWon = gamesWon+1, totalGames=totalGames+1 where userName = ?",(firstPrize,streaks[1]+1,streaks[1]+1, row[0]))
                 else:
@@ -348,7 +369,10 @@ def updatePlayerHistory(cId, duration, weatherType, scoringType, conn, cursor):
             if count == 0:
                 cursor.execute("select currentStreak, maxStreak from history where userName = ?",(row[0]))
                 streaks = cursor.fetchall()
-                if (streaks[0] == streaks[1]):
+                if (streaks[0] == streaks[1] and streaks[0] > 2):
+                    cursor.execute("update history set earnings = earnings+?, currentStreak = ?, maxStreak = ?, "
+                                   "gamesWon = gamesWon+1, totalGames=totalGames+1 where userName = ?",(firstPrize * 1.1,streaks[1]+1,streaks[1]+1, row[0]))
+                elif (streaks[0] == streaks[1] and streaks[0] > 2):
                     cursor.execute("update history set earnings = earnings+?, currentStreak = ?, maxStreak = ?, "
                                    "gamesWon = gamesWon+1, totalGames=totalGames+1 where userName = ?",(firstPrize,streaks[1]+1,streaks[1]+1, row[0]))
                 else:
